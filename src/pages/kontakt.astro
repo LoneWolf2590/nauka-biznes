@@ -1,0 +1,48 @@
+---
+import Base from "../layouts/Base.astro";
+import ContactMap from "../components/ContactMap.astro";
+import PageHeader from "../components/PageHeader.astro";
+import settings from "../data/settings.json";
+
+const wspolrzedne = { szerokosc: 52.240678, dlugosc: 21.017457 };
+
+const ulica = settings.ulica.replace(/\s(\S+)$/, "\u00a0$1");
+---
+
+<Base title="Kontakt" description="Dane kontaktowe projektu NAUKA | BIZNES.">
+  <PageHeader
+    eyebrow="Kontakt"
+    title="Skontaktuj się z nami"
+    lead="Chcesz dowiedzieć się więcej? Zapraszamy do kontaktu!"
+  />
+  <section class="section contact-page">
+    <div class="container">
+      <p class="eyebrow">Jednostka</p>
+      <h2>{settings.jednostka}</h2>
+
+      <div class="contact-cards">
+        <article class="contact-card">
+          <h3>Adres</h3>
+          <p>
+            {settings.wydzial}<br />
+            {settings.uniwersytet}<br />
+            {ulica}<br />
+            {settings.miasto}
+          </p>
+        </article>
+        <article class="contact-card">
+          <h3>Koordynator projektu</h3>
+          <p>{settings.koordynator}</p>
+        </article>
+        <article class="contact-card">
+          <h3>E-mail</h3>
+          <p><a href={`mailto:${settings.email}`}>{settings.email}</a></p>
+        </article>
+      </div>
+    </div>
+
+    <div class="container">
+      <ContactMap szerokosc={wspolrzedne.szerokosc} dlugosc={wspolrzedne.dlugosc} />
+    </div>
+  </section>
+</Base>

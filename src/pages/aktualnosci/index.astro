@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import EmptyState from "../../components/EmptyState.astro";
+import NewsCard from "../../components/NewsCard.astro";
+import NewsDialogs from "../../components/NewsDialogs.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { withBase } from "../../lib/paths";
+
+const news = (await getCollection("aktualnosci", ({ id }) => id !== "__empty")).sort(
+  (a, b) => b.data.data.getTime() - a.data.data.getTime(),
+);
+---
+
+<Base title="Aktualności" description="Aktualności projektu NAUKA | BIZNES.">
+  <PageHeader
+    eyebrow="Aktualności"
+    title="Informacje z projektu"
+    lead="W tym miejscu publikujemy potwierdzone informacje o działaniach i rezultatach projektu."
+  />
+  <section class="section">
+    <div class="container">
+      {news.length > 0 ? (
+        <>
+          <div class="news-list">
+            {news.map((entry) => (
+              <NewsCard
+                slug={entry.id}
+                title={entry.data.tytul}
+                date={entry.data.data}
+                lead={entry.data.lead}
+                image={entry.data.obraz}
+                imageAlt={entry.data.obrazAlt}
+                overlay
+              />
+            ))}
+          </div>
+          <NewsDialogs entries={news} />
+        </>
+      ) : (
+        <EmptyState
+          title="Brak opublikowanych aktualności"
+          text="Pierwsze informacje pojawią się tutaj po rozpoczęciu publikacji działań projektu."
+        />
+      )}
+    </div>
+  </section>
+</Base>

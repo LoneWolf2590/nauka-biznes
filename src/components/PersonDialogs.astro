@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+import { render, type CollectionEntry } from "astro:content";
+import { osobaDialogId } from "../lib/dialogs";
+import { inicjaly } from "../lib/format";
+
+interface Props {
+  entries: CollectionEntry<"zespol">[];
+}
+
+const { entries } = Astro.props;
+
+const dialogs = await Promise.all(
+  entries
+    .filter((entry) => Boolean(entry.body?.trim()))
+    .map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+---
+
+{dialogs.map(({ entry, Content }) => {
+  const id = osobaDialogId(entry.id);
+  return (
+    <dialog class="overlay-dialog" id={id} aria-labelledby={`${id}-tytul`} data-overlay>
+      <article class="overlay-dialog__panel">
+        <button class="overlay-dialog__close" type="button" data-overlay-close>
+          <span aria-hidden="true">×</span>
+          <span class="visually-hidden">Zamknij notę biograficzną</span>
+        </button>
+        <div class="overlay-dialog__scroll" tabindex="0">
+          <div class="overlay-dialog__body person-dialog__body">
+            <div class="person-dialog__head">
+              <div class="person-dialog__portrait">
+                {entry.data.foto && entry.data.fotoAlt ? (
+                  <Image
+                    src={entry.data.foto}
+                    alt={entry.data.fotoAlt}
+                    widths={[160, 320]}
+                    sizes="160px"
+                    format="webp"
+                  />
+                ) : (
+                  <span class="person-dialog__initials" aria-hidden="true">
+                    {inicjaly(entry.data.imieNazwisko)}
+                  </span>
+                )}
+              </div>
+              <div>
+                <p class="eyebrow">Zespół projektu</p>
+                <h2 id={`${id}-tytul`}>{entry.data.imieNazwisko}</h2>
+                <p class="person-card__role">{entry.data.rola}</p>
+                {entry.data.afiliacja && (
+                  <p class="person-card__affiliation">{entry.data.afiliacja}</p>
+                )}
+                {entry.data.email && (
+                  <p class="person-dialog__email">
+                    <a href={`mailto:${entry.data.email}`}>{entry.data.email}</a>
+                  </p>
+                )}
+                {entry.data.orcid && (
+                  <p class="person-dialog__orcid">
+                    <a href={entry.data.orcid} rel="noopener">
+                      ORCID: {entry.data.orcid.replace(/^https?:\/\/orcid\.org\//, "")}
+                    </a>
+                  </p>
+                )}
+              </div>
+            </div>
+            <div class="prose">
+              <Content />
+            </div>
+          </div>
+        </div>
+      </article>
+    </dialog>
+  );
+})}
+
+<script>
+  import "../lib/overlay-client";
+</script>

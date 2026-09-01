@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import placeholder from "../assets/motif/nb-motif-jasny.png";
+
+interface Props {
+  image?: ImageMetadata;
+  alt?: string;
+  widths: number[];
+  sizes: string;
+  loading?: "lazy" | "eager";
+}
+
+const { image, alt, widths, sizes, loading = "lazy" } = Astro.props;
+---
+
+{image && alt ? (
+  <Image src={image} alt={alt} widths={widths} sizes={sizes} format="webp" loading={loading} />
+) : (
+  <Image
+    class="news-media__placeholder"
+    src={placeholder}
+    alt=""
+    widths={widths}
+    sizes={sizes}
+    format="webp"
+    loading={loading}
+  />
+)}

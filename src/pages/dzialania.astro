@@ -1,0 +1,104 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+
+const description = "Działania projektu NAUKA | BIZNES w latach 2026–2027.";
+
+const areas = [
+  {
+    number: "01",
+    title: "Ekosystem współpracy",
+    text: "Budowanie relacji, sieciowanie środowisk oraz tworzenie warunków do inicjowania nowych partnerstw.",
+  },
+  {
+    number: "02",
+    title: "Badania i dobre praktyki",
+    text: "Diagnoza doświadczeń i barier współpracy, analiza skutecznych rozwiązań oraz dyskusja nad możliwymi modelami współdziałania.",
+  },
+  {
+    number: "03",
+    title: "Transformacja technologiczna",
+    text: "Badanie wpływu cyfryzacji, robotyzacji, automatyzacji i sztucznej inteligencji oraz poszukiwanie nowych obszarów współpracy nauki i biznesu.",
+  },
+];
+---
+
+<Base title="Działania" description={description}>
+  <PageHeader
+    eyebrow="Działania"
+    title="Od diagnozy do współpracy"
+    lead="Działania projektu zostały zaplanowane jako proces łączący badania, wymianę doświadczeń, budowanie relacji oraz wypracowywanie praktycznych rekomendacji."
+  />
+
+  <section class="section" aria-labelledby="zakres-title">
+    <div class="container">
+      <p class="eyebrow">Zakres</p>
+      <h2 id="zakres-title">Obszary działań projektu</h2>
+      <p class="section-intro">
+        W latach 2026–2027 będziemy tworzyć przestrzeń do spotkania przedstawicieli nauki,
+        biznesu i instytucji publicznych, analizować doświadczenia związane ze współpracą uczelni
+        z otoczeniem społeczno-gospodarczym, identyfikować dobre praktyki oraz podejmować temat
+        transformacji technologicznej i jej wpływu na gospodarkę, rynek pracy oraz szkolnictwo wyższe.
+      </p>
+
+      <div class="action-areas">
+        {areas.map((area) => (
+          <article class="action-area">
+            <span aria-hidden="true">{area.number}</span>
+            <h3>{area.title}</h3>
+            <p>{area.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section timeline" aria-labelledby="timeline-title">
+    <div class="container">
+      <p class="eyebrow">Harmonogram</p>
+      <h2 id="timeline-title">Dwa etapy projektu</h2>
+      <div class="timeline__years">
+        <article>
+          <p class="timeline__year">2026</p>
+          <h3>Budujemy podstawy współpracy</h3>
+          <p>
+            Pierwszy etap projektu koncentruje się na identyfikacji środowisk zainteresowanych
+            współpracą oraz uruchomieniu działań badawczych, networkingowych i eksperckich.
+          </p>
+          <p>
+            Rozpocznie się tworzenie grup przedstawicieli środowiska naukowego i biznesowego
+            zainteresowanych rozwijaniem współpracy. Prowadzone będą działania służące rozpoznaniu
+            obecnych modeli współdziałania uczelni z przedsiębiorstwami, ich potrzeb, doświadczeń
+            oraz najważniejszych barier.
+          </p>
+        </article>
+        <article>
+          <p class="timeline__year">2027</p>
+          <h3>Od doświadczeń do rekomendacji</h3>
+          <p>
+            Działania będą rozwijane i pogłębiane. Kontynuowane będą badania, spotkania oraz
+            inicjatywy służące wymianie doświadczeń i budowaniu partnerstw.
+          </p>
+          <p>
+            Coraz większy nacisk zostanie położony na analizę zebranej wiedzy, prezentację wyników,
+            dyskusję ekspercką oraz wypracowywanie rekomendacji. Zwieńczeniem projektu będzie
+            konferencja podsumowująca wraz z prezentacją efektów i publikacją końcową.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ongoing" aria-labelledby="ongoing-title">
+    <div class="container">
+      <p class="eyebrow">2026–2027</p>
+      <h2 id="ongoing-title">Działania realizowane przez cały projekt</h2>
+      <p>
+        Część przedsięwzięć będzie prowadzona w obu latach. Dotyczy to m.in. spotkań networkingowych,
+        badań dotyczących współpracy nauki i biznesu, analiz funkcjonowania Rad Interesariuszy,
+        seminariów i warsztatów eksperckich, badań nad transformacją technologiczną, pilotażu zajęć
+        dydaktycznych oraz działań komunikacyjnych i promocyjnych.
+      </p>
+    </div>
+  </section>
+</Base>

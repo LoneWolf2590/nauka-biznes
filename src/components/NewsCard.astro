@@ -1,0 +1,47 @@
+---
+import type { ImageMetadata } from "astro";
+import NewsMedia from "./NewsMedia.astro";
+import { formatDate } from "../lib/format";
+import { withBase } from "../lib/paths";
+import { newsDialogId } from "../lib/dialogs";
+
+interface Props {
+  slug: string;
+  title: string;
+  date: Date;
+  lead: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  headingLevel?: "h2" | "h3";
+    overlay?: boolean;
+}
+
+const {
+  slug,
+  title,
+  date,
+  lead,
+  image,
+  imageAlt,
+  headingLevel = "h2",
+  overlay = false,
+} = Astro.props;
+
+const Heading = headingLevel;
+const href = withBase(`aktualnosci/${slug}/`);
+const overlayAttributes = overlay ? { "data-overlay-open": newsDialogId(slug) } : {};
+---
+
+<article class="news-card">
+  <a class="news-card__image" href={href} tabindex="-1" aria-hidden="true" {...overlayAttributes}>
+    <NewsMedia image={image} alt={imageAlt} widths={[360, 560]} sizes="(max-width: 720px) 100vw, 360px" />
+  </a>
+  <div class="news-card__body">
+    <time datetime={date.toISOString()}>{formatDate(date)}</time>
+    <Heading><a href={href} {...overlayAttributes}>{title}</a></Heading>
+    <p>{lead}</p>
+    <a class="news-card__more" href={href} tabindex="-1" aria-hidden="true" {...overlayAttributes}>
+      Czytaj więcej <span>→</span>
+    </a>
+  </div>
+</article>

@@ -1,0 +1,63 @@
+@media print {
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .menu-toggle,
+  .page-nav,
+  .motif {
+    display: none !important;
+  }
+
+  html,
+  body {
+    color: var(--ink);
+    background: var(--white);
+  }
+
+  .institutional {
+    color: var(--ink);
+    background: var(--white);
+    border-top: 1px solid var(--rule);
+  }
+
+  .institutional__funding,
+  .institutional__name,
+  .institutional__details dd {
+    color: var(--ink);
+  }
+
+  .hero {
+    min-height: 0;
+    padding-block: var(--s6);
+    background: var(--white);
+  }
+
+  .prose {
+    max-width: none;
+  }
+
+  .prose > section {
+    margin-top: var(--s7);
+  }
+
+  .section {
+    padding-block: var(--s6);
+  }
+
+  .section-split,
+  .goals-list,
+  .project-pillars {
+    display: block;
+  }
+
+  .project-pillar,
+  .goals-list > div,
+  .pullquote {
+    break-inside: avoid;
+  }
+
+  .prose a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: var(--fs-12);
+  }
+}

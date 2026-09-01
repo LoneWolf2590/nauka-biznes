@@ -1,0 +1,59 @@
+---
+import settings from "../data/settings.json";
+import { Image } from "astro:assets";
+import uwLogo from "../assets/logo/uw.png";
+import mniswLogo from "../assets/logo/mnisw.png";
+import Logo from "./Logo.astro";
+import Motif from "./Motif.astro";
+---
+
+<section class="institutional" aria-labelledby="institutional-heading">
+  <Motif variant="footer" />
+  <div class="container">
+    <Logo variant="bialy" alt="NAUKA | BIZNES" class="institutional__project-logo" />
+    <h2 class="eyebrow" id="institutional-heading">Informacje o projekcie</h2>
+        <p class="institutional__funding">{settings.klauzulaFinansowania}</p>
+
+    <div class="institutional__content">
+      <div class="institutional__relations">
+        <div>
+          <span class="institutional__label">Realizator</span>
+          <span class="institutional__logo-tile institutional__logo-tile--uw">
+            <Image
+              src={uwLogo}
+              alt="Uniwersytet Warszawski"
+              loading="lazy"
+              widths={[100, 200]}
+              sizes="100px"
+              format="webp"
+            />
+          </span>
+        </div>
+        <div>
+          <span class="institutional__label">Finansowanie</span>
+          <span class="institutional__logo-tile institutional__logo-tile--mnisw">
+            <Image
+              src={mniswLogo}
+              alt="Ministerstwo Nauki i Szkolnictwa Wyższego"
+              loading="lazy"
+              widths={[184, 368]}
+              sizes="184px"
+              format="webp"
+            />
+          </span>
+        </div>
+      </div>
+
+      <dl class="institutional__details">
+        <dt>Jednostka</dt>
+        <dd>{settings.jednostka}<br />{settings.wydzial}</dd>
+        <dt>Kierownik projektu</dt>
+        <dd>{settings.kierownik}</dd>
+        <dt>Kontakt</dt>
+        <dd><a href={`mailto:${settings.email}`}>{settings.email}</a></dd>
+        <dt>Adres</dt>
+        <dd>{settings.ulica}, {settings.miasto}</dd>
+      </dl>
+    </div>
+  </div>
+</section>

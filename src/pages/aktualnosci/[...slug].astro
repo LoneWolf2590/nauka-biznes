@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Motif from "../../components/Motif.astro";
+import { formatDate } from "../../lib/format";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("aktualnosci", ({ id }) => id !== "__empty");
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<"aktualnosci">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Base title={entry.data.tytul} description={entry.data.lead}>
+  <article class="news-article">
+    <header class="hero hero--page news-article__header">
+      <Motif variant="hero" />
+      <div class="hero__inner container">
+        <p class="eyebrow">Aktualności</p>
+        <time datetime={entry.data.data.toISOString()}>{formatDate(entry.data.data)}</time>
+        <h1>{entry.data.tytul}</h1>
+        <p class="hero__lead">{entry.data.lead}</p>
+      </div>
+    </header>
+    {entry.data.obraz && entry.data.obrazAlt && (
+      <div class="news-article__image container">
+        <Image src={entry.data.obraz} alt={entry.data.obrazAlt} widths={[720, 1080]} sizes="(max-width: 1160px) 100vw, 1080px" format="webp" />
+      </div>
+    )}
+    <div class="prose news-article__body container">
+      <Content />
+    </div>
+  </article>
+</Base>

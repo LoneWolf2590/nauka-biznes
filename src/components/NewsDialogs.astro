@@ -1,0 +1,53 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import NewsMedia from "./NewsMedia.astro";
+import { formatDate } from "../lib/format";
+import { newsDialogId } from "../lib/dialogs";
+
+interface Props {
+  entries: CollectionEntry<"aktualnosci">[];
+}
+
+const { entries } = Astro.props;
+
+const dialogs = await Promise.all(
+  entries.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+---
+
+{dialogs.map(({ entry, Content }) => {
+  const id = newsDialogId(entry.id);
+  return (
+    <dialog class="overlay-dialog" id={id} aria-labelledby={`${id}-tytul`} data-overlay>
+      <article class="overlay-dialog__panel">
+        <button class="overlay-dialog__close" type="button" data-overlay-close>
+          <span aria-hidden="true">×</span>
+          <span class="visually-hidden">Zamknij aktualność</span>
+        </button>
+        <div class="overlay-dialog__scroll" tabindex="0">
+          <div class="overlay-dialog__media">
+            <NewsMedia
+              image={entry.data.obraz}
+              alt={entry.data.obrazAlt}
+              widths={[720, 1080]}
+              sizes="(max-width: 900px) 100vw, 860px"
+            />
+          </div>
+          <div class="overlay-dialog__body">
+            <p class="eyebrow">Aktualności</p>
+            <time datetime={entry.data.data.toISOString()}>{formatDate(entry.data.data)}</time>
+            <h2 id={`${id}-tytul`}>{entry.data.tytul}</h2>
+            <p class="overlay-dialog__lead">{entry.data.lead}</p>
+            <div class="prose">
+              <Content />
+            </div>
+          </div>
+        </div>
+      </article>
+    </dialog>
+  );
+})}
+
+<script>
+  import "../lib/overlay-client";
+</script>

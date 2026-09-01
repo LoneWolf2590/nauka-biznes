@@ -1,0 +1,20 @@
+---
+import Base from "../layouts/Base.astro";
+import Button from "../components/Button.astro";
+import Motif from "../components/Motif.astro";
+---
+
+<Base title="Nie znaleziono strony" description="Nie znaleziono wskazanej strony.">
+  <header class="hero hero--page not-found">
+    <Motif variant="hero" />
+    <div class="hero__inner container">
+      <p class="eyebrow">Błąd 404</p>
+      <h1>Nie znaleziono strony</h1>
+      <p>Adres mógł zostać wpisany nieprawidłowo albo wskazana strona nie istnieje.</p>
+      <div class="not-found__actions">
+        <Button href="">Przejdź na stronę główną</Button>
+        <Button href="o-projekcie/" variant="text">Dowiedz się więcej o projekcie</Button>
+      </div>
+    </div>
+  </header>
+</Base>

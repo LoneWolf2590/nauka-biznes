@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import motifDark from "../assets/motif/nb-motif-ciemny.png";
+import motifLight from "../assets/motif/nb-motif-jasny.png";
+import panelDark from "../assets/motif/nb-panel-ciemny.png";
+
+interface Props {
+  variant: "hero" | "idea" | "footer";
+}
+
+const { variant } = Astro.props;
+
+const sources = { hero: motifLight, idea: panelDark, footer: motifDark };
+const widths = variant === "idea" ? [560, 900, 1200] : [380, 570, 760];
+const sizes = {
+  hero: "(max-width: 800px) 92vw, 58vw",
+  idea: "(max-width: 900px) 96vw, 620px",
+  footer: "(max-width: 640px) 92vw, 560px",
+};
+---
+
+<span class:list={["motif", `motif--${variant}`]} aria-hidden="true">
+  <Image
+    src={sources[variant]}
+    alt=""
+    widths={widths}
+    sizes={sizes[variant]}
+    format="webp"
+    quality={variant === "idea" ? 90 : 88}
+    loading={variant === "hero" ? "eager" : "lazy"}
+    fetchpriority={variant === "hero" ? "high" : "auto"}
+  />
+</span>

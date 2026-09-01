@@ -1,0 +1,156 @@
+---
+import Base from "../layouts/Base.astro";
+import Button from "../components/Button.astro";
+import Motif from "../components/Motif.astro";
+import PillarRow from "../components/PillarRow.astro";
+import NewsCarousel from "../components/NewsCarousel.astro";
+import NewsDialogs from "../components/NewsDialogs.astro";
+import PartnerStrip from "../components/PartnerStrip.astro";
+import { getCollection } from "astro:content";
+
+const description = "Projekt NAUKA | BIZNES rozwija współpracę nauki, biznesu i instytucji publicznych.";
+
+const pillars = [
+  {
+    number: "01",
+    title: "Ekosystem współpracy",
+    text: "Identyfikujemy przedstawicieli środowiska naukowego i gospodarczego zainteresowanych współpracą oraz tworzymy warunki do ich spotkania.",
+  },
+  {
+    number: "02",
+    title: "Badania i dobre praktyki",
+    text: "Prowadzimy badania dotyczące doświadczeń, potrzeb i barier współpracy pomiędzy uczelniami i przedsiębiorstwami.",
+  },
+  {
+    number: "03",
+    title: "Transformacja technologiczna",
+    text: "Analizujemy wpływ cyfryzacji, robotyzacji, automatyzacji i sztucznej inteligencji oraz pytamy o nowe przestrzenie współpracy nauki i biznesu.",
+  },
+];
+
+const allNews = (await getCollection("aktualnosci", ({ id }) => id !== "__empty")).sort(
+  (a, b) => b.data.data.getTime() - a.data.data.getTime(),
+);
+const partners = (await getCollection("partnerzy", ({ id }) => id !== "__empty")).sort(
+  (a, b) => a.data.kolejnosc - b.data.kolejnosc,
+);
+---
+
+<Base description={description}>
+  <header class="hero">
+    <Motif variant="hero" />
+    <div class="hero__inner container">
+      <p class="eyebrow">NAUKA | BIZNES</p>
+      <h1>Łączymy wiedzę z praktyką</h1>
+      <p class="hero__lead">
+        Tworzymy przestrzeń współpracy pomiędzy nauką, biznesem i instytucjami publicznymi.
+        Szukamy rozwiązań, które pozwalają skuteczniej wykorzystywać potencjał wiedzy, badań
+        i doświadczenia w odpowiedzi na potrzeby gospodarki i wyzwania przyszłości.
+      </p>
+      <div class="hero__actions">
+        <Button href="o-projekcie/">Poznaj projekt <span aria-hidden="true">→</span></Button>
+        <Button href="zespol/" variant="outline">Poznaj zespół <span aria-hidden="true">→</span></Button>
+      </div>
+    </div>
+  </header>
+
+  <section class="section environments" aria-labelledby="environments-title">
+    <div class="container">
+      <div class="environments__head">
+        <div>
+          <p class="eyebrow">Po co łączymy naukę i biznes?</p>
+          <h2 id="environments-title">Dwa środowiska.<br />Wspólne wyzwania.</h2>
+        </div>
+        <p class="environments__lead">
+          Nauka i biznes funkcjonują w różnych rytmach, posługują się różnymi językami
+          i odpowiadają na inne potrzeby. Łączy je jednak coraz więcej wyzwań.
+        </p>
+      </div>
+
+      <div class="environments__grid">
+        <article class="environment">
+          <h3>Nauka</h3>
+          <ul>
+            <li>Wiedza</li>
+            <li>Badania</li>
+            <li>Potencjał środowiska akademickiego</li>
+          </ul>
+        </article>
+        <article class="environment">
+          <h3>Biznes</h3>
+          <ul>
+            <li>Doświadczenie</li>
+            <li>Praktyka</li>
+            <li>Potrzeby gospodarki</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="environments__closing">
+        Transformacja technologiczna, rozwój sztucznej inteligencji, automatyzacja i robotyzacja
+        zmieniają gospodarkę, rynek pracy oraz sposób, w jaki rozwijamy kompetencje. Projekt
+        NAUKA | BIZNES powstał po to, by szukać punktów styku.
+      </p>
+    </div>
+  </section>
+
+  <section class="section idea" id="idea" aria-labelledby="idea-title">
+    <div class="container">
+      <div class="idea__intro">
+        <div class="idea__copy">
+          <p class="eyebrow">Nasza idea</p>
+          <h2 id="idea-title">Jak rozumiemy współpracę</h2>
+          <p>
+            Współpraca nauki i biznesu może oznaczać wspólne badania, rozwój innowacji i nowych
+            technologii, ale również kształcenie odpowiadające na zmieniające się potrzeby rynku
+            pracy, rozwój kompetencji, wymianę wiedzy i doświadczeń oraz tworzenie trwałych relacji
+            pomiędzy ludźmi i instytucjami.
+          </p>
+          <p>
+            Dlatego NAUKA | BIZNES łączy badania, spotkania środowiskowe, wymianę dobrych praktyk
+            i pracę nad rozwiązaniami, które mogą być wykorzystywane w praktyce.
+          </p>
+        </div>
+
+        <div class="idea__panel">
+          <Motif variant="idea" />
+          <p>Przenikanie <span>·</span> Punkty styku <span>·</span> Przepływ wiedzy</p>
+        </div>
+      </div>
+
+      <div class="pillars" aria-label="Trzy filary projektu">
+        {pillars.map((pillar) => <PillarRow {...pillar} />)}
+      </div>
+
+      <div class="idea__action">
+        <Button href="dzialania/" variant="text">
+          Poznaj działania projektu <span aria-hidden="true">→</span>
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  {allNews.length > 0 && (
+    <>
+    <section class="section home-news" aria-labelledby="home-news-title">
+      <div class="container">
+        <p class="eyebrow">Aktualności</p>
+        <h2 id="home-news-title">Najnowsze informacje z projektu</h2>
+        <NewsCarousel entries={allNews} />
+        <div class="section-action">
+          <Button href="aktualnosci/" variant="text">Wszystkie aktualności <span aria-hidden="true">→</span></Button>
+        </div>
+      </div>
+    </section>
+    <NewsDialogs entries={allNews} />
+    </>
+  )}
+
+  <PartnerStrip
+    partners={partners.map((entry) => ({
+      name: entry.data.nazwa,
+      logo: entry.data.logo,
+      url: entry.data.url,
+    }))}
+  />
+</Base>

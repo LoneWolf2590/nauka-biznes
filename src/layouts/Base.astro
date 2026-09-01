@@ -1,0 +1,44 @@
+---
+import "@fontsource/lato/latin-300.css";
+import "@fontsource/lato/latin-400.css";
+import "@fontsource/lato/latin-700.css";
+import "@fontsource/lato/latin-ext-300.css";
+import "@fontsource/lato/latin-ext-400.css";
+import "@fontsource/lato/latin-ext-700.css";
+import "../styles/base.css";
+import "../styles/layout.css";
+import "../styles/components.css";
+import "../styles/print.css";
+import InstitutionalBlock from "../components/InstitutionalBlock.astro";
+import Seo from "../components/Seo.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  title?: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <Seo title={title} description={description} />
+    <link rel="alternate" type="application/rss+xml" title="Aktualności NAUKA | BIZNES" href={withBase("rss.xml")} />
+  </head>
+  <body>
+    <a class="skip-link" href="#tresc">Przejdź do treści</a>
+    <SiteHeader />
+    <main class="page-main" id="tresc">
+      <slot />
+    </main>
+    <InstitutionalBlock />
+    <SiteFooter />
+  </body>
+</html>

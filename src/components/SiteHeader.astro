@@ -1,0 +1,63 @@
+---
+import navigation from "../data/nawigacja.json";
+import { withBase } from "../lib/paths";
+import Logo from "./Logo.astro";
+import { getCollection } from "astro:content";
+
+const currentPath = Astro.url.pathname;
+const hasMaterials = (await getCollection("materialy", ({ id }) => id !== "__empty")).length > 0;
+const visibleNavigation = navigation.filter(
+  (item) => !("warunkowa" in item) || item.warunkowa !== "materialy" || hasMaterials,
+);
+---
+
+<header class="site-header">
+  <div class="site-header__inner container">
+    <a class="site-wordmark" href={withBase()} aria-label="NAUKA BIZNES — strona główna">
+      <Logo variant="granat" priority />
+    </a>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-navigation"
+    >
+      Menu
+    </button>
+    <nav class="site-nav" id="site-navigation" aria-label="Główna">
+      <ul>
+        {visibleNavigation.map((item) => {
+          const href = withBase(item.sciezka);
+          const isCurrent = item.sciezka === ""
+            ? currentPath.replace(/\/*$/, "/") === href
+            : currentPath.startsWith(href);
+          return (
+            <li>
+              <a href={href} aria-current={isCurrent ? "page" : undefined}>{item.etykieta}</a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const navigation = document.querySelector<HTMLElement>(".site-nav");
+
+  const closeMenu = () => {
+    toggle?.setAttribute("aria-expanded", "false");
+    navigation?.removeAttribute("data-open");
+  };
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    navigation?.toggleAttribute("data-open", !isOpen);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
+</script>

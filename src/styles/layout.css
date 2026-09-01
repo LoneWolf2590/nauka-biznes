@@ -1,0 +1,54 @@
+.container {
+  width: min(calc(100% - 40px), var(--container));
+  margin-inline: auto;
+}
+
+.page-main {
+  min-height: 50vh;
+}
+
+.section {
+  padding-block: var(--pad-sec);
+}
+
+.page-main > .section:nth-of-type(odd) {
+  background: var(--mist);
+}
+
+.page-main > .section:nth-of-type(even) {
+  background: var(--white);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+html[data-dialog-open] {
+  overflow: hidden;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: var(--s3);
+  left: var(--s3);
+  padding: var(--s3) var(--s4);
+  color: var(--on-navy);
+  background: var(--navy);
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(calc(100% - 32px), var(--container));
+  }
+}

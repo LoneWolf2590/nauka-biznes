@@ -1,0 +1,9 @@
+[
+  { "etykieta": "Strona główna", "sciezka": "" },
+  { "etykieta": "O projekcie", "sciezka": "o-projekcie/" },
+  { "etykieta": "Aktualności", "sciezka": "aktualnosci/" },
+  { "etykieta": "Działania", "sciezka": "dzialania/" },
+  { "etykieta": "Zespół", "sciezka": "zespol/" },
+  { "etykieta": "Materiały", "sciezka": "materialy/", "warunkowa": "materialy" },
+  { "etykieta": "Kontakt", "sciezka": "kontakt/" }
+]

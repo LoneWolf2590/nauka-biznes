@@ -1,0 +1,104 @@
+---
+import { Image } from "astro:assets";
+import "leaflet/dist/leaflet.css";
+import mapaStatyczna from "../assets/map/wydzial-uw.png";
+import settings from "../data/settings.json";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  szerokosc: number;
+  dlugosc: number;
+}
+
+const { szerokosc, dlugosc } = Astro.props;
+
+const kafelki = withBase("mapa/{z}/{x}/{y}.png");
+const linkOsm = `https://www.openstreetmap.org/?mlat=${szerokosc}&mlon=${dlugosc}#map=17/${szerokosc}/${dlugosc}`;
+const opis = `${settings.wydzial}, ${settings.uniwersytet}, ${settings.ulica}, ${settings.miasto}`;
+---
+
+<figure class="contact-map">
+  <div class="contact-map__frame">
+    <div
+      class="contact-map__canvas"
+      id="mapa-wydzialu"
+      data-szerokosc={szerokosc}
+      data-dlugosc={dlugosc}
+      data-kafelki={kafelki}
+      data-opis={opis}
+    >
+      <noscript>
+        <Image
+          src={mapaStatyczna}
+          alt={`Mapa okolicy: ${opis}. Znacznik wskazuje siedzibę wydziału.`}
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 1200px) 100vw, 1160px"
+          format="webp"
+          quality={82}
+        />
+      </noscript>
+    </div>
+  </div>
+
+  <figcaption class="contact-map__caption">
+    <span>{opis}</span>
+    <span>
+      {"Dane mapy © "}
+      <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap contributors</a>
+      {". "}
+      <a href={linkOsm} rel="noopener">Otwórz w OpenStreetMap</a>
+      {"."}
+    </span>
+  </figcaption>
+</figure>
+
+<script>
+  import L from "leaflet";
+
+  const container = document.querySelector<HTMLElement>("#mapa-wydzialu");
+
+  if (container) {
+    const szerokosc = Number(container.dataset.szerokosc);
+    const dlugosc = Number(container.dataset.dlugosc);
+    const srodek: [number, number] = [szerokosc, dlugosc];
+
+    const zasieg = L.latLngBounds(
+      [szerokosc - 0.006, dlugosc - 0.016],
+      [szerokosc + 0.006, dlugosc + 0.016],
+    );
+
+    const map = L.map(container, {
+      center: srodek,
+      zoom: 17,
+      minZoom: 16,
+      maxZoom: 18,
+      scrollWheelZoom: false,
+      attributionControl: false,
+      maxBounds: zasieg,
+      maxBoundsViscosity: 1,
+    });
+
+    L.tileLayer(container.dataset.kafelki ?? "", {
+      bounds: zasieg,
+      minZoom: 16,
+      maxZoom: 18,
+      maxNativeZoom: 17,
+      noWrap: true,
+    }).addTo(map);
+
+    const znacznik = L.divIcon({
+      className: "contact-map__pin",
+      html: '<span aria-hidden="true"></span>',
+      iconSize: [16, 16],
+      iconAnchor: [8, 8],
+    });
+
+    L.marker(srodek, { icon: znacznik, title: container.dataset.opis, keyboard: false }).addTo(map);
+
+    map.on("click", () => map.scrollWheelZoom.enable());
+    map.on("mouseout", () => map.scrollWheelZoom.disable());
+
+    container.setAttribute("role", "application");
+    container.setAttribute("aria-label", `Mapa: ${container.dataset.opis}`);
+  }
+</script>

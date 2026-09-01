@@ -1,0 +1,238 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+
+const description = "Cele, założenia i trzy filary projektu NAUKA | BIZNES realizowanego przez Uniwersytet Warszawski.";
+
+const sekcje = [
+  { id: "dlaczego", label: "Dlaczego ten projekt" },
+  { id: "cel", label: "Cel projektu" },
+  { id: "co-chcemy-osiagnac", label: "Co chcemy osiągnąć" },
+  { id: "trzy-filary", label: "Trzy filary" },
+  { id: "od-diagnozy", label: "Od diagnozy do rozwiązań" },
+];
+
+const cele = [
+  {
+    tytul: "Diagnozujemy współpracę",
+    opis: "Badamy jej obecne formy, doświadczenia uczestników oraz bariery prawne, organizacyjne i finansowe.",
+  },
+  {
+    tytul: "Szukamy dobrych praktyk",
+    opis: "Identyfikujemy rozwiązania i modele współdziałania, które mogą być inspiracją dla innych uczelni, przedsiębiorstw i instytucji.",
+  },
+  {
+    tytul: "Łączymy środowiska",
+    opis: "Tworzymy przestrzeń do spotkań, dyskusji, wymiany doświadczeń i inicjowania nowych partnerstw.",
+  },
+  {
+    tytul: "Rozmawiamy o przyszłości",
+    opis: "Analizujemy wpływ cyfryzacji, automatyzacji, robotyzacji i sztucznej inteligencji na gospodarkę, rynek pracy, szkolnictwo wyższe oraz kompetencje przyszłości.",
+  },
+  {
+    tytul: "Wypracowujemy rekomendacje",
+    opis: "Wykorzystujemy wiedzę płynącą z badań i doświadczeń uczestników do przygotowania propozycji rozwiązań wspierających rozwój współpracy nauki z biznesem i instytucjami publicznymi.",
+  },
+];
+---
+
+<Base title="O projekcie" description={description}>
+  <PageHeader
+    eyebrow="O projekcie"
+    title="Nauka i biznes. Współpraca, która ma znaczenie"
+    lead="Współpraca pomiędzy środowiskiem akademickim a gospodarką i instytucjami publicznymi staje się jednym z kluczowych warunków rozwoju gospodarki opartej na wiedzy."
+  />
+
+  <nav class="page-nav" aria-label="Na tej stronie">
+    <div class="container page-nav__inner">
+      <span>Na tej stronie</span>
+      <ul>
+        {sekcje.map((sekcja) => <li><a href={`#${sekcja.id}`}>{sekcja.label}</a></li>)}
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section" aria-labelledby="wprowadzenie-title">
+    <div class="container section-split">
+      <div class="section-split__head">
+        <p class="eyebrow">Wprowadzenie</p>
+        <h2 id="wprowadzenie-title">Czym jest projekt NAUKA | BIZNES?</h2>
+      </div>
+      <div class="section-split__body">
+        <p class="section-intro">
+          Zmieniający się rynek pracy, rosnące znaczenie innowacji oraz dynamiczny rozwój nowych
+          technologii sprawiają, że coraz większego znaczenia nabiera zdolność do łączenia potencjału
+          nauki z wiedzą i doświadczeniem praktyki.
+        </p>
+        <p>
+          Projekt NAUKA | BIZNES powstał z myślą o rozwijaniu systemowej i trwałej współpracy pomiędzy
+          tymi środowiskami. Koncentrujemy się na poznaniu rzeczywistych doświadczeń uczelni
+          i przedsiębiorstw, identyfikowaniu barier utrudniających współpracę, poszukiwaniu dobrych
+          praktyk oraz tworzeniu przestrzeni, w której mogą powstawać nowe relacje i partnerstwa.
+        </p>
+        <p>
+          Interesuje nas współpraca rozumiana szeroko — obejmująca badania i rozwój, transfer wiedzy
+          i technologii, kształcenie i rozwój kompetencji, ale również bezpośrednią wymianę doświadczeń
+          pomiędzy przedstawicielami nauki, biznesu i instytucji publicznych.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="dlaczego" aria-labelledby="dlaczego-title">
+    <div class="container section-split">
+      <div class="section-split__head">
+        <p class="eyebrow">Diagnoza</p>
+        <h2 id="dlaczego-title">Dlaczego ten projekt jest potrzebny?</h2>
+      </div>
+      <div class="section-split__body">
+        <p>
+          Nauka i biznes dysponują różnymi zasobami, kompetencjami i doświadczeniami. Funkcjonują
+          jednak również w odmiennych strukturach organizacyjnych, rytmach działania i systemach
+          motywacji. Skuteczna współpraca wymaga więc czegoś więcej niż stworzenia pojedynczego
+          instrumentu finansowania czy realizacji jednego wspólnego przedsięwzięcia.
+        </p>
+        <p>
+          Potrzebne są trwałe mechanizmy dialogu, wzajemne rozpoznanie potrzeb, zaufanie oraz
+          przestrzeń do inicjowania wspólnych działań.
+        </p>
+        <p>
+          Projekt uzupełnia istniejące inicjatywy wspierające transfer wiedzy, technologii i współpracę
+          badawczo-rozwojową. Jego szczególną wartością jest koncentracja na doświadczeniach samych
+          uczestników współpracy, identyfikacji dobrych praktyk oraz poszukiwaniu modeli współdziałania
+          w obszarze badań, kształcenia i rozwoju kompetencji.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cel" aria-labelledby="cel-title">
+    <div class="container section-split">
+      <div class="section-split__head">
+        <p class="eyebrow">Cel</p>
+        <h2 id="cel-title">Cel projektu</h2>
+      </div>
+      <div class="section-split__body">
+        <p>
+          Głównym celem projektu jest wsparcie rozwoju współpracy pomiędzy środowiskiem naukowym,
+          sektorem biznesowym oraz instytucjami publicznymi.
+        </p>
+        <p>
+          Chcemy lepiej rozpoznać jej obecne formy, potencjał i bariery, zidentyfikować rozwiązania,
+          które już się sprawdzają, a następnie — na podstawie badań, doświadczeń uczestników
+          i dyskusji eksperckiej — przygotować praktyczne rekomendacje dotyczące dalszego rozwoju
+          współpracy uczelni z otoczeniem społeczno-gospodarczym.
+        </p>
+        <p>
+          Projekt ma również tworzyć przestrzeń do bezpośredniego spotkania przedstawicieli różnych
+          środowisk.
+        </p>
+
+        <aside class="pullquote">
+          <p>
+            Wierzymy, że trwała współpraca zaczyna się od poznania wzajemnych potrzeb, wymiany
+            doświadczeń i budowania relacji.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="co-chcemy-osiagnac" aria-labelledby="cele-title">
+    <div class="container">
+      <p class="eyebrow">Kierunki działań</p>
+      <h2 id="cele-title">Co chcemy osiągnąć?</h2>
+      <p class="section-lead">W ramach projektu koncentrujemy się na kilku wzajemnie powiązanych kierunkach.</p>
+      <dl class="goals-list">
+        {cele.map((cel) => (
+          <div>
+            <dt>{cel.tytul}</dt>
+            <dd>{cel.opis}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="trzy-filary" aria-labelledby="filary-title">
+    <div class="container">
+      <p class="eyebrow">Struktura projektu</p>
+      <h2 id="filary-title">Trzy filary projektu</h2>
+      <p class="section-lead">Całość działań została zbudowana wokół trzech uzupełniających się filarów.</p>
+
+      <div class="project-pillars">
+        <article class="project-pillar" aria-labelledby="pillar-01">
+          <span class="project-pillar__number" aria-hidden="true">01</span>
+          <h3 id="pillar-01">Ekosystem współpracy</h3>
+          <p>
+            Pierwszy filar koncentruje się na ludziach i relacjach. Identyfikujemy przedstawicieli
+            środowiska naukowego i gospodarczego zainteresowanych współpracą oraz tworzymy warunki
+            do ich spotkania. Spotkania networkingowe mają służyć nie tylko wymianie doświadczeń,
+            lecz również rozpoznawaniu wspólnych obszarów zainteresowania i inicjowaniu nowych
+            partnerstw.
+          </p>
+          <p>
+            Chcemy wzmacniać kulturę współpracy opartą na dialogu, wzajemnym rozumieniu potrzeb
+            i partnerskim podejściu do wspólnych przedsięwzięć.
+          </p>
+        </article>
+
+        <article class="project-pillar" aria-labelledby="pillar-02">
+          <span class="project-pillar__number" aria-hidden="true">02</span>
+          <h3 id="pillar-02">Badania i dobre praktyki</h3>
+          <p>
+            Drugi filar pozwoli nam lepiej zrozumieć, jak współpraca nauki i biznesu wygląda
+            w praktyce. Prowadzimy badania dotyczące doświadczeń, potrzeb i barier współpracy
+            pomiędzy uczelniami i przedsiębiorstwami. Poszukujemy dobrych praktyk oraz przyglądamy
+            się potencjałowi funkcjonujących na uczelniach Rad Interesariuszy.
+          </p>
+          <p>
+            Wyniki badań będą przedmiotem dyskusji podczas seminariów eksperckich — tak, aby wiedza
+            zebrana w projekcie prowadziła do konkretnych wniosków i rekomendacji.
+          </p>
+        </article>
+
+        <article class="project-pillar" aria-labelledby="pillar-03">
+          <span class="project-pillar__number" aria-hidden="true">03</span>
+          <h3 id="pillar-03">Transformacja technologiczna</h3>
+          <p>
+            Trzeci filar kieruje uwagę na jedno z największych wyzwań stojących przed gospodarką,
+            rynkiem pracy i szkolnictwem wyższym. Analizujemy wpływ cyfryzacji, robotyzacji,
+            automatyzacji i sztucznej inteligencji oraz pytamy, jakie nowe przestrzenie współpracy
+            tworzą zachodzące zmiany.
+          </p>
+          <p>
+            Elementem tego filaru będzie również pilotaż zajęć dydaktycznych dotyczących
+            transformacji technologicznej, gospodarki i rynku pracy.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="od-diagnozy" aria-labelledby="od-diagnozy-title">
+    <div class="container section-split">
+      <div class="section-split__head">
+        <p class="eyebrow">Efekty</p>
+        <h2 id="od-diagnozy-title">Od diagnozy do praktycznych rozwiązań</h2>
+      </div>
+      <div class="section-split__body">
+        <p>
+          Projekt został zaplanowany tak, aby kolejne działania wzajemnie się uzupełniały. Badania
+          pozwolą rozpoznać bariery, potrzeby i doświadczenia. Spotkania i seminaria umożliwią
+          konfrontowanie różnych perspektyw oraz wymianę wiedzy.
+        </p>
+        <p>
+          Analiza dobrych praktyk pokaże rozwiązania, które już funkcjonują. Wyniki wszystkich tych
+          działań staną się podstawą do przygotowania rekomendacji i materiałów, które będą mogły
+          być wykorzystywane również po zakończeniu projektu.
+        </p>
+        <p>
+          Powstaną m.in. raporty analityczne, rekomendacje, materiały dotyczące transformacji
+          technologicznej oraz publikacje podsumowujące prowadzone działania. Projekt obejmuje także
+          spotkania środowiskowe, seminaria eksperckie oraz pilotaż zajęć dydaktycznych.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

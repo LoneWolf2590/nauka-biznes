@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets";
+import wordmarkLight from "../assets/logo/nb-wordmark-bialy.png";
+import wordmarkDark from "../assets/logo/nb-wordmark-granat.png";
+
+interface Props {
+  variant?: "granat" | "bialy";
+  alt?: string;
+  class?: string;
+  priority?: boolean;
+}
+
+const { variant = "granat", alt = "NAUKA | BIZNES", class: className, priority = false } = Astro.props;
+
+const sources = { granat: wordmarkDark, bialy: wordmarkLight };
+---
+
+<Image
+  src={sources[variant]}
+  alt={alt}
+  class:list={["project-logo", className]}
+  loading={priority ? "eager" : "lazy"}
+  fetchpriority={priority ? "high" : "auto"}
+  widths={[180, 260, 323]}
+  sizes="(max-width: 480px) 180px, 220px"
+  format="webp"
+  quality={92}
+/>

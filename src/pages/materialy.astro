@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import EmptyState from "../components/EmptyState.astro";
+import MaterialRow from "../components/MaterialRow.astro";
+import PageHeader from "../components/PageHeader.astro";
+
+const materials = (await getCollection("materialy", ({ id }) => id !== "__empty")).sort(
+  (a, b) => b.data.data.getTime() - a.data.data.getTime(),
+);
+---
+
+<Base title="Materiały" description="Materiały i rezultaty projektu NAUKA | BIZNES.">
+  <PageHeader
+    eyebrow="Materiały"
+    title="Rezultaty projektu"
+    lead="W tym miejscu będą publikowane potwierdzone rezultaty i materiały do pobrania."
+  />
+  <section class="section">
+    <div class="container">
+      {materials.length > 0 ? (
+        <div class="materials-list">
+          {materials.map((entry) => (
+            <MaterialRow
+              title={entry.data.tytul}
+              date={entry.data.data}
+              type={entry.data.typ}
+              file={entry.data.plik}
+              sizeKB={entry.data.rozmiarKB}
+              accessible={entry.data.dostepnyCyfrowo}
+            />
+          ))}
+        </div>
+      ) : (
+        <EmptyState
+          title="Materiały nie zostały jeszcze opublikowane"
+          text="Ta strona zostanie uzupełniona po przygotowaniu pierwszych rezultatów projektu."
+        />
+      )}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,15 @@
+---
+import { withBase } from "../lib/paths";
+
+interface Props {
+  href: string;
+  variant?: "primary" | "outline" | "text";
+}
+
+const { href, variant = "primary" } = Astro.props;
+const resolvedHref = href.startsWith("#") || href.startsWith("http") ? href : withBase(href);
+---
+
+<a class:list={["button", `button--${variant}`]} href={resolvedHref}>
+  <slot />
+</a>

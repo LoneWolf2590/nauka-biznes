@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import PersonCard from "../components/PersonCard.astro";
+import PersonDialogs from "../components/PersonDialogs.astro";
+
+const team = (await getCollection("zespol", ({ id }) => id !== "__empty")).sort(
+  (a, b) => a.data.kolejnosc - b.data.kolejnosc,
+);
+---
+
+<Base title="Zespół" description="Zespół projektu NAUKA | BIZNES.">
+  <PageHeader
+    eyebrow="Zespół"
+    title="Nasz zespół"
+    lead="Projekt realizuje zespół Uniwersytetu Warszawskiego."
+  />
+  <section class="section">
+    <div class="team-list container">
+      {team.map((entry) => (
+        <PersonCard
+          slug={entry.id}
+          name={entry.data.imieNazwisko}
+          role={entry.data.rola}
+          affiliation={entry.data.afiliacja}
+          bio={entry.data.bio}
+          photo={entry.data.foto}
+          photoAlt={entry.data.fotoAlt}
+          hasNote={Boolean(entry.body?.trim())}
+        />
+      ))}
+    </div>
+    <PersonDialogs entries={team} />
+  </section>
+</Base>

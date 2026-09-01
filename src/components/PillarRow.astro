@@ -1,0 +1,15 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  text: string;
+}
+
+const { number, title, text } = Astro.props;
+---
+
+<article class="pillar-row">
+  <span class="pillar-row__number" aria-hidden="true">{number}</span>
+  <h3>{title}</h3>
+  <p>{text}</p>
+</article>
