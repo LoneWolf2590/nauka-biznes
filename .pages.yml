@@ -1,0 +1,80 @@
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: "Dodaj {path} (Pages CMS)"
+      update: "Edytuj {path} (Pages CMS)"
+
+media:
+  - name: aktualnosci-images
+    label: Zdjęcia aktualności
+    input: src/content/aktualnosci/_media
+    output: ./_media
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+
+content:
+  - name: aktualnosci
+    label: Aktualności
+    type: collection
+    path: src/content/aktualnosci
+    format: yaml-frontmatter
+    subfolders: false
+
+    filename:
+      template: "{fields.data}-{fields.tytul}.md"
+      field: false
+
+    operations:
+      create: true
+      rename: false
+      delete: false
+
+    view:
+      primary: tytul
+      fields: [tytul, data, lead]
+      sort: [data]
+      default:
+        sort: data
+        order: desc
+
+    fields:
+      - name: tytul
+        label: Tytuł
+        type: string
+        required: true
+
+      - name: data
+        label: Data
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+
+      - name: lead
+        label: Krótki opis
+        type: text
+        required: true
+
+      - name: obraz
+        label: Zdjęcie (opcjonalne)
+        type: image
+        required: false
+        media: aktualnosci-images
+        description: Jeśli nie dodasz zdjęcia, zostanie wyświetlona standardowa grafika projektu.
+
+      - name: obrazAlt
+        label: Opis zdjęcia
+        type: string
+        required: false
+        description: Wypełnij to pole, jeśli dodajesz zdjęcie. Opisz krótko, co znajduje się na fotografii.
+
+      - name: body
+        label: Treść aktualności
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          switcher: false
+          media: false
