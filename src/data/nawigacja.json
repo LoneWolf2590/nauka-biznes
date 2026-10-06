@@ -5,5 +5,6 @@
   { "etykieta": "Działania", "sciezka": "dzialania/" },
   { "etykieta": "Zespół", "sciezka": "zespol/" },
   { "etykieta": "Materiały", "sciezka": "materialy/" },
+  { "etykieta": "Wydarzenia", "sciezka": "wydarzenia/", "menu": "wydarzenia" },
   { "etykieta": "Kontakt", "sciezka": "kontakt/" }
 ]
