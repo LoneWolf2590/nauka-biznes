@@ -21,6 +21,14 @@ media:
     extensions: [jpg, jpeg, png, webp]
     rename: safe
 
+  - name: materialy-files
+    label: Pliki materiałów
+    input: public/materialy
+    output: /materialy
+    extensions: [pdf, doc, docx, xls, xlsx, ppt, pptx, zip]
+    rename: safe
+
+
 content:
 
   # =========================
@@ -181,3 +189,84 @@ content:
         options:
           format: markdown
           media: false
+
+
+  # =========================
+  # MATERIAŁY
+  # =========================
+
+  - name: materialy
+    label: Materiały
+    type: collection
+    path: src/content/materialy
+    format: yaml-frontmatter
+    subfolders: false
+
+    filename:
+      template: "{data}-{tytul}.md"
+      field: false
+
+    operations:
+      create: true
+      rename: false
+      delete: true
+
+    view:
+      primary: tytul
+      fields: [tytul, data, typ]
+      sort: [data, tytul]
+      default:
+        sort: data
+        order: desc
+
+    fields:
+      - name: tytul
+        label: Tytuł materiału
+        type: string
+        required: true
+
+      - name: data
+        label: Data publikacji
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+
+      - name: typ
+        label: Typ materiału
+        type: select
+        required: true
+        options:
+          values:
+            - name: raport
+              label: Raport
+            - name: rekomendacje
+              label: Rekomendacje
+            - name: prezentacja
+              label: Prezentacja
+            - name: publikacja
+              label: Publikacja
+            - name: inne
+              label: Inny materiał
+
+      - name: plik
+        label: Plik
+        type: file
+        required: true
+        description: Wgraj plik, który będzie można pobrać ze strony.
+        options:
+          media: materialy-files
+          extensions: [pdf, doc, docx, xls, xlsx, ppt, pptx, zip]
+          rename: safe
+
+      - name: rozmiarKB
+        label: Rozmiar pliku w KB
+        type: number
+        required: true
+        description: "Np. dla pliku 2,4 MB wpisz około 2458."
+
+      - name: dostepnyCyfrowo
+        label: Dostępny cyfrowo
+        type: boolean
+        required: true
+        default: true
