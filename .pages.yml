@@ -129,10 +129,10 @@ content:
           media: aktualnosci-images
 
       - name: obrazAlt
-        label: Opis zdjęcia
+        label: Opis zdjęcia (zalecany)
         type: string
         required: false
-        description: Wypełnij to pole, jeśli dodajesz zdjęcie.
+        description: Zalecany ze względu na dostępność strony. Brak opisu nie blokuje publikacji.
 
       - name: body
         label: Treść aktualności
