@@ -27,7 +27,6 @@ const materials = (await getCollection("materialy", ({ id }) => id !== "__empty"
               type={entry.data.typ}
               file={entry.data.plik}
               sizeKB={entry.data.rozmiarKB}
-              accessible={entry.data.dostepnyCyfrowo}
             />
           ))}
         </div>
