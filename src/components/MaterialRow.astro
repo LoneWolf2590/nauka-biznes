@@ -8,10 +8,10 @@ interface Props {
   type: "raport" | "rekomendacje" | "prezentacja" | "publikacja" | "inne";
   file: string;
   sizeKB: number;
-  accessible: boolean;
 }
 
-const { title, date, type, file, sizeKB, accessible } = Astro.props;
+const { title, date, type, file, sizeKB } = Astro.props;
+
 const typeLabels = {
   raport: "Raport",
   rekomendacje: "Rekomendacje",
@@ -19,8 +19,11 @@ const typeLabels = {
   publikacja: "Publikacja",
   inne: "Materiał",
 };
+
 const fileHref = file.startsWith("http") ? file : withBase(file);
-const fileExtension = file.split(".").pop()?.toLocaleUpperCase("pl-PL") ?? "PLIK";
+
+const fileExtension =
+  file.split(".").pop()?.toLocaleUpperCase("pl-PL") ?? "PLIK";
 ---
 
 <article class="material-row">
@@ -28,12 +31,21 @@ const fileExtension = file.split(".").pop()?.toLocaleUpperCase("pl-PL") ?? "PLIK
     <p class="material-row__type">{typeLabels[type]}</p>
     <h2>{title}</h2>
   </div>
+
   <dl>
-    <div><dt>Data</dt><dd>{formatDate(date)}</dd></div>
-    <div><dt>Format</dt><dd>{fileExtension}, {formatFileSize(sizeKB)}</dd></div>
-    <div><dt>Dostępność</dt><dd>{accessible ? "Dostępny cyfrowo" : "Wymaga dostosowania"}</dd></div>
+    <div>
+      <dt>Data</dt>
+      <dd>{formatDate(date)}</dd>
+    </div>
+
+    <div>
+      <dt>Format</dt>
+      <dd>{fileExtension}, {formatFileSize(sizeKB)}</dd>
+    </div>
   </dl>
+
   <a href={fileHref}>
-    Pobierz: {title}, {fileExtension}, {formatFileSize(sizeKB)} <span aria-hidden="true">↓</span>
+    Pobierz: {title}, {fileExtension}, {formatFileSize(sizeKB)}
+    <span aria-hidden="true">↓</span>
   </a>
 </article>
