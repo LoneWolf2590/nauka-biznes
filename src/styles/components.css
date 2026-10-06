@@ -1442,6 +1442,12 @@ a.partner-logo:focus-visible img {
   gap: var(--s3);
 }
 
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
 .social-link {
   display: inline-flex;
   width: 42px;
