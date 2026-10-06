@@ -14,7 +14,19 @@ media:
     extensions: [jpg, jpeg, png, webp]
     rename: safe
 
+  - name: zespol-images
+    label: Zdjęcia zespołu
+    input: src/content/zespol/_media
+    output: ./_media
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+
 content:
+
+  # =========================
+  # AKTUALNOŚCI
+  # =========================
+
   - name: aktualnosci
     label: Aktualności
     type: collection
@@ -23,7 +35,7 @@ content:
     subfolders: false
 
     filename:
-      template: "{fields.data}-{fields.tytul}.md"
+      template: "{data}-{tytul}.md"
       field: false
 
     operations:
@@ -61,14 +73,15 @@ content:
         label: Zdjęcie (opcjonalne)
         type: image
         required: false
-        media: aktualnosci-images
         description: Jeśli nie dodasz zdjęcia, zostanie wyświetlona standardowa grafika projektu.
+        options:
+          media: aktualnosci-images
 
       - name: obrazAlt
         label: Opis zdjęcia
         type: string
         required: false
-        description: Wypełnij to pole, jeśli dodajesz zdjęcie. Opisz krótko, co znajduje się na fotografii.
+        description: Wypełnij to pole, jeśli dodajesz zdjęcie.
 
       - name: body
         label: Treść aktualności
@@ -77,4 +90,94 @@ content:
         options:
           format: markdown
           switcher: false
+          media: false
+
+
+  # =========================
+  # ZESPÓŁ
+  # =========================
+
+  - name: zespol
+    label: Zespół
+    type: collection
+    path: src/content/zespol
+    format: yaml-frontmatter
+    subfolders: false
+
+    filename:
+      template: "{primary}.md"
+      field: false
+
+    operations:
+      create: true
+      rename: false
+      delete: false
+
+    view:
+      primary: imieNazwisko
+      fields: [imieNazwisko, rola, kolejnosc]
+      sort: [kolejnosc, imieNazwisko]
+      default:
+        sort: kolejnosc
+        order: asc
+
+    fields:
+      - name: imieNazwisko
+        label: Imię i nazwisko
+        type: string
+        required: true
+
+      - name: rola
+        label: Rola w projekcie
+        type: string
+        required: true
+
+      - name: kolejnosc
+        label: Kolejność wyświetlania
+        type: number
+        required: true
+        description: "1 = pierwsza osoba, 2 = druga osoba itd."
+
+      - name: afiliacja
+        label: Afiliacja
+        type: string
+        required: false
+
+      - name: email
+        label: E-mail
+        type: string
+        required: false
+
+      - name: orcid
+        label: ORCID
+        type: string
+        required: false
+        description: "Pełny adres, np. https://orcid.org/0000-0000-0000-0000"
+
+      - name: bio
+        label: Krótki opis na karcie
+        type: text
+        required: false
+        description: Opcjonalny krótki tekst wyświetlany bezpośrednio na karcie osoby.
+
+      - name: foto
+        label: Zdjęcie
+        type: image
+        required: false
+        description: Jeśli zdjęcie nie zostanie dodane, strona pokaże obecny placeholder z inicjałami.
+        options:
+          media: zespol-images
+
+      - name: fotoAlt
+        label: Opis zdjęcia
+        type: string
+        required: false
+        description: Jeśli dodajesz zdjęcie, wpisz krótki opis, np. „Portret dr Anny Kowalskiej”.
+
+      - name: body
+        label: Pełna nota biograficzna
+        type: rich-text
+        required: false
+        options:
+          format: markdown
           media: false
