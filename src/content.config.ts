@@ -44,7 +44,6 @@ function quietGlob(options: Parameters<typeof glob>[0]) {
   };
 }
 
-
 const tekst = (pole: string) =>
   z
     .string()
@@ -52,7 +51,6 @@ const tekst = (pole: string) =>
     .min(1, {
       message: `Pole „${pole}” nie może być puste.`,
     });
-
 
 const data = z.coerce.date({
   message: "Podaj prawidłową datę w formacie RRRR-MM-DD.",
@@ -201,7 +199,9 @@ const materialy = defineCollection({
       .positive({
         message:
           "Rozmiar pliku musi być większy od zera.",
-      });
+      }),
+  }),
+});
 
 
 /* =========================
