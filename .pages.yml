@@ -1,12 +1,19 @@
 settings:
   content:
     merge: true
+
   commit:
     templates:
       create: "Dodaj {path} (Pages CMS)"
       update: "Edytuj {path} (Pages CMS)"
 
+
 media:
+
+  # =========================
+  # ZDJĘCIA AKTUALNOŚCI
+  # =========================
+
   - name: aktualnosci-images
     label: Zdjęcia aktualności
     input: src/content/aktualnosci/_media
@@ -14,12 +21,22 @@ media:
     extensions: [jpg, jpeg, png, webp]
     rename: safe
 
+
+  # =========================
+  # ZDJĘCIA ZESPOŁU
+  # =========================
+
   - name: zespol-images
     label: Zdjęcia zespołu
     input: src/content/zespol/_media
     output: ./_media
     extensions: [jpg, jpeg, png, webp]
     rename: safe
+
+
+  # =========================
+  # PLIKI MATERIAŁÓW
+  # =========================
 
   - name: materialy-files
     label: Pliki materiałów
@@ -29,11 +46,36 @@ media:
     rename: safe
 
 
-content:
+  # =========================
+  # ZDJĘCIA WYDARZEŃ
+  # =========================
+
+  - name: wydarzenia-images
+    label: Zdjęcia wydarzeń
+    input: src/content/wydarzenia/_media
+    output: ./_media
+    extensions: [jpg, jpeg, png, webp]
+    rename: safe
+
 
   # =========================
-  # AKTUALNOŚCI
+  # PLIKI WYDARZEŃ
   # =========================
+
+  - name: wydarzenia-files
+    label: Pliki wydarzeń
+    input: public/pliki-wydarzen
+    output: /pliki-wydarzen
+    extensions: [pdf]
+    rename: safe
+
+
+
+content:
+
+  # ============================================================
+  # AKTUALNOŚCI
+  # ============================================================
 
   - name: aktualnosci
     label: Aktualności
@@ -60,6 +102,7 @@ content:
         order: desc
 
     fields:
+
       - name: tytul
         label: Tytuł
         type: string
@@ -101,9 +144,10 @@ content:
           media: false
 
 
-  # =========================
+
+  # ============================================================
   # ZESPÓŁ
-  # =========================
+  # ============================================================
 
   - name: zespol
     label: Zespół
@@ -130,6 +174,7 @@ content:
         order: asc
 
     fields:
+
       - name: imieNazwisko
         label: Imię i nazwisko
         type: string
@@ -172,7 +217,7 @@ content:
         label: Zdjęcie
         type: image
         required: false
-        description: Jeśli zdjęcie nie zostanie dodane, strona pokaże obecny placeholder z inicjałami.
+        description: Jeśli zdjęcie nie zostanie dodane, strona pokaże placeholder z inicjałami.
         options:
           media: zespol-images
 
@@ -180,7 +225,7 @@ content:
         label: Opis zdjęcia
         type: string
         required: false
-        description: Jeśli dodajesz zdjęcie, wpisz krótki opis, np. „Portret dr Anny Kowalskiej”.
+        description: Jeśli dodajesz zdjęcie, wpisz jego krótki opis.
 
       - name: body
         label: Pełna nota biograficzna
@@ -191,9 +236,10 @@ content:
           media: false
 
 
-  # =========================
+
+  # ============================================================
   # MATERIAŁY
-  # =========================
+  # ============================================================
 
   - name: materialy
     label: Materiały
@@ -220,6 +266,7 @@ content:
         order: desc
 
     fields:
+
       - name: tytul
         label: Tytuł materiału
         type: string
@@ -240,12 +287,16 @@ content:
           values:
             - name: raport
               label: Raport
+
             - name: rekomendacje
               label: Rekomendacje
+
             - name: prezentacja
               label: Prezentacja
+
             - name: publikacja
               label: Publikacja
+
             - name: inne
               label: Inny materiał
 
@@ -270,3 +321,125 @@ content:
         type: boolean
         required: true
         default: true
+
+
+
+  # ============================================================
+  # WYDARZENIA
+  # ============================================================
+
+  - name: wydarzenia
+    label: Wydarzenia
+    type: collection
+    path: src/content/wydarzenia
+    format: yaml-frontmatter
+    subfolders: false
+
+    filename:
+      template: "{primary}.md"
+      field: false
+
+    operations:
+      create: true
+      rename: false
+      delete: false
+
+    view:
+      primary: tytul
+      fields: [tytul, typ, dataStart, opublikowane]
+      sort: [dataStart, tytul]
+      default:
+        sort: dataStart
+        order: desc
+
+    fields:
+
+      - name: tytul
+        label: Tytuł wydarzenia
+        type: string
+        required: true
+
+      - name: typ
+        label: Typ wydarzenia
+        type: select
+        required: true
+        options:
+          values:
+            - name: konferencja
+              label: Konferencja
+
+            - name: seminarium
+              label: Seminarium
+
+            - name: warsztat
+              label: Warsztat
+
+            - name: debata
+              label: Debata
+
+            - name: inne
+              label: Inne wydarzenie
+
+      - name: dataStart
+        label: Data rozpoczęcia
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+
+      - name: dataKoniec
+        label: Data zakończenia (opcjonalnie)
+        type: date
+        required: false
+        options:
+          format: yyyy-MM-dd
+
+      - name: miejsce
+        label: Miejsce
+        type: string
+        required: false
+
+      - name: lead
+        label: Krótki opis
+        type: text
+        required: true
+
+      - name: obraz
+        label: Zdjęcie / grafika wydarzenia (opcjonalnie)
+        type: image
+        required: false
+        description: Możesz dodać zdjęcie, grafikę konferencji lub plakat.
+        options:
+          media: wydarzenia-images
+
+      - name: obrazAlt
+        label: Opis zdjęcia
+        type: string
+        required: false
+        description: Wypełnij to pole, jeśli dodajesz zdjęcie lub grafikę.
+
+      - name: program
+        label: Program wydarzenia w PDF (opcjonalnie)
+        type: file
+        required: false
+        description: Opcjonalny program konferencji lub innego wydarzenia.
+        options:
+          media: wydarzenia-files
+          extensions: [pdf]
+          rename: safe
+
+      - name: opublikowane
+        label: Opublikowane na stronie
+        type: boolean
+        required: true
+        default: false
+        description: Włącz dopiero wtedy, gdy wydarzenie ma być publicznie dostępne i pojawić się w menu strony.
+
+      - name: body
+        label: Treść strony wydarzenia
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          switcher: false
+          media: false
