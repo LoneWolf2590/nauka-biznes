@@ -1436,6 +1436,42 @@ a.partner-logo:focus-visible img {
   color: var(--on-navy-link);
 }
 
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.social-link {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--on-navy-link);
+  border-radius: 50%;
+  color: var(--on-navy-link);
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.social-link svg {
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  border-color: var(--on-navy-link);
+  color: var(--navy);
+  background: var(--on-navy-link);
+  text-decoration: none;
+}
+
 .site-footer {
   padding-block: var(--s5);
   color: var(--on-navy-2);
