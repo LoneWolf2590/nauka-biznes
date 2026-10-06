@@ -1414,7 +1414,7 @@ a.partner-logo:focus-visible img {
   margin: 0;
   grid-template-columns: minmax(150px, .35fr) 1fr;
   align-content: start;
-    align-items: baseline;
+  align-items: start;
   gap: var(--s4) var(--s5);
 }
 
@@ -1434,12 +1434,6 @@ a.partner-logo:focus-visible img {
 .institutional a,
 .site-footer a {
   color: var(--on-navy-link);
-}
-
-.social-links {
-  display: flex;
-  align-items: center;
-  gap: var(--s3);
 }
 
 .social-links {
