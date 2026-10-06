@@ -201,14 +201,7 @@ const materialy = defineCollection({
       .positive({
         message:
           "Rozmiar pliku musi być większy od zera.",
-      }),
-
-    dostepnyCyfrowo: z.boolean({
-      message:
-        "Określ dostępność cyfrową: true albo false.",
-    }),
-  }),
-});
+      });
 
 
 /* =========================
