@@ -53,14 +53,26 @@ import Motif from "./Motif.astro";
         <dd><a href={`mailto:${settings.email}`}>{settings.email}</a></dd>
         <dt>Adres</dt>
         <dd>{settings.ulica}, {settings.miasto}</dd>
-        <dt>Facebook</dt>
-        <dd>
+        <dt>Media społecznościowe</dt>
+        <dd class="social-links">
           <a
+            class="social-link"
             href={settings.facebook}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Facebook projektu NAUKA | BIZNES"
+            title="Facebook"
           >
-            NAUKA | BIZNES na Facebooku
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill="currentColor"
+                d="M13.5 22v-9h3l.5-3.5h-3.5V7.3c0-1 .3-1.8 1.8-1.8H17V2.4c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.6v2.6H7V13h3v9h3.5Z"
+              />
+            </svg>
           </a>
         </dd>
       </dl>
