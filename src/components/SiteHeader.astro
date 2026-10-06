@@ -5,17 +5,54 @@ import Logo from "./Logo.astro";
 import { getCollection } from "astro:content";
 
 const currentPath = Astro.url.pathname;
-const hasMaterials = (await getCollection("materialy", ({ id }) => id !== "__empty")).length > 0;
+
+const hasMaterials =
+  (
+    await getCollection(
+      "materialy",
+      ({ id }) => id !== "__empty",
+    )
+  ).length > 0;
+
+const events = (
+  await getCollection(
+    "wydarzenia",
+    ({ id, data }) =>
+      id !== "__empty" && data.opublikowane,
+  )
+).sort(
+  (a, b) =>
+    b.data.dataStart.getTime() -
+    a.data.dataStart.getTime(),
+);
+
 const visibleNavigation = navigation.filter(
-  (item) => !("warunkowa" in item) || item.warunkowa !== "materialy" || hasMaterials,
+  (item) =>
+    (
+      !("warunkowa" in item) ||
+      item.warunkowa !== "materialy" ||
+      hasMaterials
+    ) &&
+    (
+      !("menu" in item) ||
+      item.menu !== "wydarzenia" ||
+      events.length > 0
+    ),
 );
 ---
 
 <header class="site-header">
+
   <div class="site-header__inner container">
-    <a class="site-wordmark" href={withBase()} aria-label="NAUKA BIZNES — strona główna">
+
+    <a
+      class="site-wordmark"
+      href={withBase()}
+      aria-label="NAUKA BIZNES — strona główna"
+    >
       <Logo variant="granat" priority />
     </a>
+
     <button
       class="menu-toggle"
       type="button"
@@ -24,40 +61,171 @@ const visibleNavigation = navigation.filter(
     >
       Menu
     </button>
-    <nav class="site-nav" id="site-navigation" aria-label="Główna">
+
+    <nav
+      class="site-nav"
+      id="site-navigation"
+      aria-label="Główna"
+    >
+
       <ul>
+
         {visibleNavigation.map((item) => {
+
+          const isEventsMenu =
+            "menu" in item &&
+            item.menu === "wydarzenia";
+
           const href = withBase(item.sciezka);
-          const isCurrent = item.sciezka === ""
-            ? currentPath.replace(/\/*$/, "/") === href
-            : currentPath.startsWith(href);
+
+          const isCurrent =
+            item.sciezka === ""
+              ? currentPath.replace(/\/*$/, "/") === href
+              : currentPath.startsWith(href);
+
+
+          if (isEventsMenu) {
+
+            return (
+
+              <li class="site-nav__dropdown">
+
+                <button
+                  class="site-nav__trigger"
+                  type="button"
+                  aria-haspopup="true"
+                  aria-current={
+                    isCurrent ? "page" : undefined
+                  }
+                >
+
+                  {item.etykieta}
+
+                  <span aria-hidden="true">
+                    ▾
+                  </span>
+
+                </button>
+
+
+                <ul class="site-nav__submenu">
+
+                  {events.map((entry) => (
+
+                    <li>
+
+                      <a
+                        href={withBase(
+                          `wydarzenia/${entry.id}/`,
+                        )}
+                      >
+
+                        {entry.data.tytul}
+
+                      </a>
+
+                    </li>
+
+                  ))}
+
+                </ul>
+
+              </li>
+
+            );
+
+          }
+
+
           return (
+
             <li>
-              <a href={href} aria-current={isCurrent ? "page" : undefined}>{item.etykieta}</a>
+
+              <a
+                href={href}
+                aria-current={
+                  isCurrent ? "page" : undefined
+                }
+              >
+
+                {item.etykieta}
+
+              </a>
+
             </li>
+
           );
+
         })}
+
       </ul>
+
     </nav>
+
   </div>
+
 </header>
 
+
 <script>
-  const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
-  const navigation = document.querySelector<HTMLElement>(".site-nav");
+
+  const toggle =
+    document.querySelector<HTMLButtonElement>(
+      ".menu-toggle",
+    );
+
+  const navigation =
+    document.querySelector<HTMLElement>(
+      ".site-nav",
+    );
+
 
   const closeMenu = () => {
-    toggle?.setAttribute("aria-expanded", "false");
-    navigation?.removeAttribute("data-open");
+
+    toggle?.setAttribute(
+      "aria-expanded",
+      "false",
+    );
+
+    navigation?.removeAttribute(
+      "data-open",
+    );
+
   };
 
-  toggle?.addEventListener("click", () => {
-    const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!isOpen));
-    navigation?.toggleAttribute("data-open", !isOpen);
-  });
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeMenu();
-  });
+  toggle?.addEventListener(
+    "click",
+    () => {
+
+      const isOpen =
+        toggle.getAttribute(
+          "aria-expanded",
+        ) === "true";
+
+      toggle.setAttribute(
+        "aria-expanded",
+        String(!isOpen),
+      );
+
+      navigation?.toggleAttribute(
+        "data-open",
+        !isOpen,
+      );
+
+    },
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+
+    },
+  );
+
 </script>
