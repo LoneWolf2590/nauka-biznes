@@ -316,12 +316,6 @@ content:
         required: true
         description: "Np. dla pliku 2,4 MB wpisz około 2458."
 
-      - name: dostepnyCyfrowo
-        label: Dostępny cyfrowo
-        type: boolean
-        required: true
-        default: true
-
 
 
   # ============================================================
