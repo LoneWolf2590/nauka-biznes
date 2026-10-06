@@ -1,0 +1,113 @@
+---
+import { Image } from "astro:assets";
+import {
+  getCollection,
+  render,
+  type CollectionEntry,
+} from "astro:content";
+
+import Base from "../../layouts/Base.astro";
+import Button from "../../components/Button.astro";
+import Motif from "../../components/Motif.astro";
+import { formatDate } from "../../lib/format";
+
+export async function getStaticPaths() {
+  const entries = await getCollection(
+    "wydarzenia",
+    ({ id, data }) =>
+      id !== "__empty" && data.opublikowane,
+  );
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"wydarzenia">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const typeLabels = {
+  konferencja: "Konferencja",
+  seminarium: "Seminarium",
+  warsztat: "Warsztat",
+  debata: "Debata",
+  inne: "Wydarzenie",
+} as const;
+
+const dateLabel =
+  entry.data.dataKoniec &&
+  entry.data.dataKoniec.getTime() !== entry.data.dataStart.getTime()
+    ? `${formatDate(entry.data.dataStart)} – ${formatDate(entry.data.dataKoniec)}`
+    : formatDate(entry.data.dataStart);
+---
+
+<Base
+  title={entry.data.tytul}
+  description={entry.data.lead}
+>
+  <article class="news-article event-article">
+
+    <header class="hero hero--page news-article__header">
+      <Motif variant="hero" />
+
+      <div class="hero__inner container">
+
+        <p class="eyebrow">
+          {typeLabels[entry.data.typ]}
+        </p>
+
+        <p class="event-article__meta">
+          <time datetime={entry.data.dataStart.toISOString()}>
+            {dateLabel}
+          </time>
+
+          {entry.data.miejsce && (
+            <span> · {entry.data.miejsce}</span>
+          )}
+        </p>
+
+        <h1>{entry.data.tytul}</h1>
+
+        <p class="hero__lead">
+          {entry.data.lead}
+        </p>
+
+      </div>
+    </header>
+
+    {entry.data.obraz && entry.data.obrazAlt && (
+      <div class="news-article__image container">
+        <Image
+          src={entry.data.obraz}
+          alt={entry.data.obrazAlt}
+          widths={[720, 1080]}
+          sizes="(max-width: 1160px) 100vw, 1080px"
+          format="webp"
+        />
+      </div>
+    )}
+
+    <div class="prose news-article__body container">
+
+      <Content />
+
+      {entry.data.program && (
+        <p class="event-article__program">
+          <Button
+            href={entry.data.program}
+            variant="outline"
+          >
+            Pobierz program wydarzenia
+          </Button>
+        </p>
+      )}
+
+    </div>
+
+  </article>
+</Base>
