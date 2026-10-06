@@ -4,6 +4,6 @@
   { "etykieta": "Aktualności", "sciezka": "aktualnosci/" },
   { "etykieta": "Działania", "sciezka": "dzialania/" },
   { "etykieta": "Zespół", "sciezka": "zespol/" },
-  { "etykieta": "Materiały", "sciezka": "materialy/", },
+  { "etykieta": "Materiały", "sciezka": "materialy/" },
   { "etykieta": "Kontakt", "sciezka": "kontakt/" }
 ]
