@@ -5,7 +5,6 @@ import Motif from "../components/Motif.astro";
 import PillarRow from "../components/PillarRow.astro";
 import NewsCarousel from "../components/NewsCarousel.astro";
 import NewsDialogs from "../components/NewsDialogs.astro";
-import PartnerStrip from "../components/PartnerStrip.astro";
 import { getCollection } from "astro:content";
 
 const description = "Projekt NAUKA | BIZNES rozwija współpracę nauki, biznesu i instytucji publicznych.";
@@ -14,7 +13,7 @@ const pillars = [
   {
     number: "01",
     title: "Ekosystem współpracy",
-    text: "Identyfikujemy przedstawicieli środowiska naukowego i gospodarczego zainteresowanych współpracą oraz tworzymy warunki do ich spotkania.",
+    text: "Identyfikujemy przedstawicieli środowiska naukowego i gospodarczego oraz tworzymy warunki do dyskusji i dialogu.",
   },
   {
     number: "02",
@@ -30,9 +29,6 @@ const pillars = [
 
 const allNews = (await getCollection("aktualnosci", ({ id }) => id !== "__empty")).sort(
   (a, b) => b.data.data.getTime() - a.data.data.getTime(),
-);
-const partners = (await getCollection("partnerzy", ({ id }) => id !== "__empty")).sort(
-  (a, b) => a.data.kolejnosc - b.data.kolejnosc,
 );
 ---
 
@@ -146,11 +142,4 @@ const partners = (await getCollection("partnerzy", ({ id }) => id !== "__empty")
     </>
   )}
 
-  <PartnerStrip
-    partners={partners.map((entry) => ({
-      name: entry.data.nazwa,
-      logo: entry.data.logo,
-      url: entry.data.url,
-    }))}
-  />
 </Base>
