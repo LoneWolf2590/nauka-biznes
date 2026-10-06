@@ -75,30 +75,20 @@ const aktualnosci = defineCollection({
   }),
 
   schema: ({ image }) =>
-    z
-      .object({
-        tytul: tekst("tytul"),
-        data,
-        lead: tekst("lead"),
+    z.object({
+      tytul: tekst("tytul"),
 
-        obraz: image().optional(),
+      data,
 
-        obrazAlt: z
-          .string()
-          .trim()
-          .optional(),
-      })
+      lead: tekst("lead"),
 
-      .refine(
-        (entry) =>
-          Boolean(entry.obraz) ===
-          Boolean(entry.obrazAlt),
-        {
-          message:
-            "Pola „obraz” i „obrazAlt” muszą występować razem.",
-          path: ["obrazAlt"],
-        },
-      ),
+      obraz: image().optional(),
+
+      obrazAlt: z
+        .string()
+        .trim()
+        .optional(),
+    }),
 });
 
 
