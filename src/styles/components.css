@@ -1465,6 +1465,90 @@ a.partner-logo:focus-visible img {
   list-style: none;
 }
 
+
+/* =========================
+   WYDARZENIA — MENU I STRONA
+   ========================= */
+
+.site-nav__dropdown {
+  position: relative;
+}
+
+.site-nav__trigger {
+  display: inline-flex;
+  min-height: 44px;
+  padding: 0;
+  align-items: center;
+  gap: var(--s2);
+  border: 0;
+  color: var(--ink-body);
+  background: transparent;
+  font: inherit;
+  font-size: var(--fs-15);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.site-nav__trigger:hover,
+.site-nav__trigger:focus-visible,
+.site-nav__trigger[aria-current="page"] {
+  color: var(--blue-900);
+  text-decoration: underline;
+  text-decoration-color: var(--blue-600);
+  text-underline-offset: var(--s3);
+}
+
+.site-nav__submenu {
+  display: none !important;
+  position: absolute;
+  z-index: 30;
+  top: calc(100% - 2px);
+  left: 0;
+  width: max-content;
+  min-width: 260px;
+  max-width: min(420px, 80vw);
+  margin: 0 !important;
+  padding: var(--s2) 0 !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  border: 1px solid var(--rule-soft);
+  background: var(--white);
+  box-shadow: 0 12px 30px rgb(15 34 58 / 12%);
+  list-style: none;
+}
+
+.site-nav__dropdown:hover > .site-nav__submenu,
+.site-nav__dropdown:focus-within > .site-nav__submenu {
+  display: block !important;
+}
+
+.site-nav__submenu li {
+  display: block;
+}
+
+.site-nav__submenu a {
+  display: block;
+  min-height: 0;
+  padding: var(--s3) var(--s4);
+  white-space: normal;
+}
+
+.site-nav__submenu a:hover,
+.site-nav__submenu a:focus-visible {
+  background: var(--mist);
+}
+
+.event-article__meta {
+  margin: 0 0 var(--s3);
+  color: var(--ink-2);
+  font-size: var(--fs-15);
+  font-weight: 700;
+}
+
+.event-article__program {
+  margin-top: var(--s7);
+}
+
 @media (max-width: 859px) {
   .menu-toggle {
     display: inline-flex;
@@ -1494,6 +1578,35 @@ a.partner-logo:focus-visible img {
 
   .site-nav a {
     border-bottom: 1px solid var(--rule-soft);
+  }
+
+
+  .site-nav__dropdown {
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .site-nav__trigger {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .site-nav__submenu {
+    display: grid !important;
+    position: static;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    margin: 0 !important;
+    padding: 0 0 var(--s2) var(--s4) !important;
+    gap: 0 !important;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .site-nav__submenu a {
+    padding: var(--s2) 0;
+    border-bottom: 0;
+    font-size: var(--fs-13);
   }
 
   .hero {
