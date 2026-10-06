@@ -14,8 +14,15 @@ interface Props {
 const { image, alt, widths, sizes, loading = "lazy" } = Astro.props;
 ---
 
-{image && alt ? (
-  <Image src={image} alt={alt} widths={widths} sizes={sizes} format="webp" loading={loading} />
+{image ? (
+  <Image
+    src={image}
+    alt={alt ?? ""}
+    widths={widths}
+    sizes={sizes}
+    format="webp"
+    loading={loading}
+  />
 ) : (
   <Image
     class="news-media__placeholder"
