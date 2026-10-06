@@ -29,9 +29,15 @@ const { Content } = await render(entry);
         <p class="hero__lead">{entry.data.lead}</p>
       </div>
     </header>
-    {entry.data.obraz && entry.data.obrazAlt && (
+    {entry.data.obraz && (
       <div class="news-article__image container">
-        <Image src={entry.data.obraz} alt={entry.data.obrazAlt} widths={[720, 1080]} sizes="(max-width: 1160px) 100vw, 1080px" format="webp" />
+        <Image
+          src={entry.data.obraz}
+          alt={entry.data.obrazAlt ?? ""}
+          widths={[720, 1080]}
+          sizes="(max-width: 1160px) 100vw, 1080px"
+          format="webp"
+        />
       </div>
     )}
     <div class="prose news-article__body container">
