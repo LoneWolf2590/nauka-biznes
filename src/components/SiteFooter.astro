@@ -7,7 +7,17 @@ import { withBase } from "../lib/paths";
   <div class="site-footer__inner container">
     <div class="site-footer__meta">
       <span>© {new Date().getFullYear()} {settings.uniwersytet}</span>
-            {settings.stopkaPodpis && <span>{settings.stopkaPodpis}</span>}
+            {settings.stopkaPodpis && (
+              <span>
+                Projekt i wykonanie:{" "}
+                <a
+                  href="mailto:webmasterwarsaw@outlook.com"
+                  aria-label="Wyślij e-mail do webmastera"
+                >
+                  Webmaster
+                </a>
+              </span>
+            )}
     </div>
     <ul class="site-footer__links">
             <li><a href={withBase("kontakt/")}>Kontakt</a></li>
