@@ -6,7 +6,8 @@ lead: Podczas Europejskiego Forum Nowych Idei odbyło się pierwsze z cyklu
   Dyskusja koncentrowała się na kierunkach rozwoju współpracy uczelni i
   przedsiębiorstw, budowaniu trwałych partnerstw oraz możliwościach wspólnego
   działania w obszarze kształcenia, badań i wdrażania innowacji.
-obraz: ./_media/8478862441221214578874528575677334143638098137n.jpg
+obraz: ./_media/8478862441221214578874528575677334143638098137n-1.jpg
+obrazAlt: Spotkanie dotyczące współpracy nauki i biznesu
 ---
 Punktem wyjścia do rozmowy była diagnoza dotychczasowych modeli współpracy nauki z biznesem oraz propozycja ich rozwoju w kierunku długofalowego partnerstwa. Przyglądano się możliwościom przechodzenia od pojedynczych projektów do stałej współpracy, opartej na wspólnym rozpoznawaniu potrzeb, planowaniu działań i zaangażowaniu obu środowisk.
 
