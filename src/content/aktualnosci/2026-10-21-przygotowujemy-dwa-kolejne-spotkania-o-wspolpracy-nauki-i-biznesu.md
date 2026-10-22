@@ -5,7 +5,7 @@ lead: Pracujemy nad dwoma spotkaniami poświęconymi współpracy naukowców i
   przedsiębiorców w programie Horyzont Europa. Podejmiemy temat nawiązywania
   partnerstw, przygotowywania wspólnych projektów oraz wsparcia finansowego,
   kompetencyjnego i organizacyjnego.
-obraz: ./_media/nauka-biznes-posty.png
+obraz: ./_media/nauka-biznes-posty-1.png
 obrazAlt: Spotkania dotyczące współpracy nauki i biznesu
 ---
 W ramach projektu NAUKA | BIZNES przygotowujemy dwa kolejne spotkania poświęcone współpracy środowiska akademickiego i przedsiębiorstw w projektach europejskich. Chcemy połączyć rozmowę o praktycznych doświadczeniach partnerów z dyskusją o warunkach, które pomagają polskim uczelniom i firmom angażować się w program Horyzont Europa.
