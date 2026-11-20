@@ -6,6 +6,7 @@ lead: Jak firmy rozwijają innowacje i co pomaga im skutecznie współpracować 
   nauką? Podczas Open Eyes Economy Summit w Krakowie rozmawialiśmy o
   doświadczeniach przedsiębiorstw, barierach transferu technologii oraz
   zadaniach biznesu, uczelni i państwa.
+obraz: ./_media/xx.jpg
 ---
 17 listopada 2026 roku podczas Open Eyes Economy Summit w Krakowie odbył się panel „Jak wspierać innowacyjność polskiej gospodarki? Zadania dla biznesu, nauki i państwa”. Dyskusję prowadził prof. Jacek Męcina, a uczestniczyły w niej przedstawicielki firm Maspex, Veolia, Polpharma i LUX MED oraz Natalia Osica, przewodnicząca zespołu doradczego ds. wzmocnienia wyników badań naukowych przy Ministerstwie Nauki i Szkolnictwa Wyższego. Spotkanie połączyło doświadczenia przedsiębiorstw rozwijających nowe produkty, usługi i procesy z perspektywą współpracy nauki z gospodarką. Punktem wyjścia było pytanie o to, jak skuteczniej wykorzystywać dostępne kompetencje, wyniki badań i środki finansowe do tworzenia oraz wdrażania innowacji.
 
